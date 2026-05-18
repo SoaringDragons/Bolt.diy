@@ -1,3 +1,14 @@
+---
+title: BOLT
+emoji: ⚡
+colorFrom: blue
+colorTo: yellow
+sdk: docker
+pinned: false
+short_description: ES PERRO PEQUENO BOLTO!!!
+---
+
+
 # bolt.diy
 
 [![bolt.diy: AI-Powered Full-Stack Web Development in the Browser](./public/social_preview_index.jpg)](https://bolt.diy)
