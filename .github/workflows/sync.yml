@@ -12,20 +12,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Clean up binary files for Hugging Face
+      - name: Clean up history for Hugging Face
         run: |
-          # Configure dummy git user for the temporary local cleanup commit
           git config --global user.email "sync@workflow.placeholder"
           git config --global user.name "Sync Workflow"
           
-          # Force remove the specific icon and image folders/files blocking the push
-          git rm -rf assets/icons/ || true
-          git rm -rf docs/images/ || true
-          git rm -f public/social_preview_index.jpg || true
-          git rm -f public/boltgives.jpeg || true
+          # Install the tool to rewrite history seamlessly
+          sudo apt-get update && sudo apt-get install -y git-filter-repo
           
-          # Commit the changes locally so the push history is completely clean of binaries
-          git commit -m "Strip binaries for Hugging Face deployment" || true
+          # Forcefully purge all images, icons, and mac icons from the entire push history
+          git filter-repo --invert-paths --path-glob '*.png' --path-glob '*.jpg' --path-glob '*.jpeg' --path-glob '*.ico' --path-glob '*.icns' --force
 
       - name: Push to HF
         run: git push --force https://SoaringDragons:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/SoaringDragons/BOLT main
