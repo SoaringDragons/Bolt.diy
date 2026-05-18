@@ -6,6 +6,7 @@ WORKDIR /app
 ENV HUSKY=0
 ENV CI=true
 
+ENV NODE_OPTIONS="--max-old-space-size=8192"
 # Use pnpm
 RUN corepack enable && corepack prepare pnpm@9.15.9 --activate
 
