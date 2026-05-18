@@ -17,12 +17,15 @@ export default defineConfig((config) => {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     },
     build: {
-  sourcemap: false,
-  chunkSizeWarningLimit: 2000,
-  rollupOptions: {
-    maxParallelFileOps: 2 // Limits how many files it bundles at the exact same millisecond
-  }
-},
+    target: 'esnext',
+    minify: 'esbuild',
+    sourcemap: false,
+    cssMinify: true,
+    rollupOptions: {
+      maxParallelFileOps: 1,
+      cache: false,
+    },
+  },
     plugins: [
       nodePolyfills({
         include: ['buffer', 'process', 'util', 'stream'],
